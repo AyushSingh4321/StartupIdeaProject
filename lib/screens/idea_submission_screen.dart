@@ -77,6 +77,7 @@ class _IdeaSubmissionScreenState extends State<IdeaSubmissionScreen>
   }
 
   Future<void> _submitIdea() async {
+    FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
 
     setState(() {
