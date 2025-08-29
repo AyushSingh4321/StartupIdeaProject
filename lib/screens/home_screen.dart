@@ -24,14 +24,13 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late AnimationController _backgroundController;
   late AnimationController _cardController;
   late AnimationController _textController;
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [];
+  // final List<Widget> _screens = [];
 
   @override
   void initState() {
@@ -51,11 +50,11 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
     );
 
-    _screens.addAll([
-      _buildWelcomeScreen(),
-      IdeaListingScreen(isDarkMode: widget.isDarkMode),
-      LeaderboardScreen(isDarkMode: widget.isDarkMode),
-    ]);
+    // _screens.addAll([
+    //   _buildWelcomeScreen(),
+    //   IdeaListingScreen(isDarkMode: widget.isDarkMode),
+    //   LeaderboardScreen(isDarkMode: widget.isDarkMode),
+    // ]);
 
     // Start animations
     _cardController.forward();
@@ -79,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
             controller: _backgroundController,
             isDarkMode: widget.isDarkMode,
           ),
-          
+
           // Main Content
           SafeArea(
             child: Padding(
@@ -94,69 +93,76 @@ class _HomeScreenState extends State<HomeScreen>
                       // Container(
                       //   padding: const EdgeInsets.all(12),
                       //   decoration: BoxDecoration(
-                      //     color: widget.isDarkMode 
+                      //     color: widget.isDarkMode
                       //         ? Colors.white.withOpacity(0.1)
                       //         : Colors.black.withOpacity(0.05),
                       //     borderRadius: BorderRadius.circular(16),
                       //     border: Border.all(
-                      //       color: widget.isDarkMode 
+                      //       color: widget.isDarkMode
                       //           ? Colors.white.withOpacity(0.2)
                       //           : Colors.black.withOpacity(0.1),
                       //     ),
                       //   ),
                       //   child: Icon(
                       //     Icons.lightbulb_outline,
-                      //     color: widget.isDarkMode 
-                      //         ? AppTheme.primaryDark 
+                      //     color: widget.isDarkMode
+                      //         ? AppTheme.primaryDark
                       //         : AppTheme.primaryLight,
                       //     size: 28,
                       //   ),
                       // ).animate().scale(delay: 300.ms, duration: 600.ms)
                       //  .shimmer(delay: 900.ms, duration: 1000.ms),
-                      
                       GestureDetector(
-                        onTap: widget.onThemeToggle,
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            gradient: widget.isDarkMode 
-                                ? AppTheme.darkGradient 
-                                : AppTheme.primaryGradient,
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: (widget.isDarkMode 
-                                    ? AppTheme.primaryDark 
-                                    : AppTheme.primaryLight).withOpacity(0.3),
-                                blurRadius: 12,
-                                offset: const Offset(0, 4),
+                            onTap: widget.onThemeToggle,
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                gradient:
+                                    widget.isDarkMode
+                                        ? AppTheme.darkGradient
+                                        : AppTheme.primaryGradient,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: (widget.isDarkMode
+                                            ? AppTheme.primaryDark
+                                            : AppTheme.primaryLight)
+                                        .withOpacity(0.3),
+                                    blurRadius: 12,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                          child: Icon(
-                            widget.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                            color: Colors.white,
-                            size: 24,
-                          ),
-                        ),
-                      ).animate().scale(delay: 400.ms, duration: 600.ms)
-                       .rotate(delay: 1000.ms, duration: 500.ms),
+                              child: Icon(
+                                widget.isDarkMode
+                                    ? Icons.light_mode
+                                    : Icons.dark_mode,
+                                color: Colors.white,
+                                size: 24,
+                              ),
+                            ),
+                          )
+                          .animate()
+                          .scale(delay: 400.ms, duration: 600.ms)
+                          .rotate(delay: 1000.ms, duration: 500.ms),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 60),
-                  
+
                   // Animated Title
                   AnimatedTextKit(
+                      key: ValueKey(widget.isDarkMode),
                     animatedTexts: [
                       TypewriterAnimatedText(
                         'The Startup Idea\nEvaluator',
                         textStyle: GoogleFonts.inter(
                           fontSize: 42,
                           fontWeight: FontWeight.bold,
-                          color: widget.isDarkMode 
-                              ? AppTheme.textPrimaryDark 
-                              : AppTheme.textPrimaryLight,
+                          color:
+                              widget.isDarkMode
+                                  ? AppTheme.textPrimaryDark
+                                  : AppTheme.textPrimaryLight,
                           height: 1.2,
                         ),
                         speed: const Duration(milliseconds: 100),
@@ -164,42 +170,48 @@ class _HomeScreenState extends State<HomeScreen>
                     ],
                     totalRepeatCount: 1,
                   ),
-                  
+
                   const SizedBox(height: 16),
-                  
+
                   // Subtitle with gradient
                   ShaderMask(
-                    shaderCallback: (bounds) => (widget.isDarkMode 
-                        ? AppTheme.darkGradient 
-                        : AppTheme.primaryGradient).createShader(bounds),
-                    child: Text(
-                      'AI + Voting App',
-                      style: GoogleFonts.inter(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ).animate().fadeIn(delay: 2000.ms, duration: 800.ms)
-                   .slideX(begin: -0.3, delay: 2000.ms, duration: 800.ms),
-                  
+                        shaderCallback:
+                            (bounds) => (widget.isDarkMode
+                                    ? AppTheme.darkGradient
+                                    : AppTheme.primaryGradient)
+                                .createShader(bounds),
+                        child: Text(
+                          'AI + Voting App',
+                          style: GoogleFonts.inter(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                      .animate()
+                      .fadeIn(delay: 2000.ms, duration: 800.ms)
+                      .slideX(begin: -0.3, delay: 2000.ms, duration: 800.ms),
+
                   const SizedBox(height: 40),
-                  
+
                   // Feature Cards
                   Expanded(
                     child: AnimationLimiter(
                       child: ListView(
                         children: AnimationConfiguration.toStaggeredList(
                           duration: const Duration(milliseconds: 600),
-                          childAnimationBuilder: (widget) => SlideAnimation(
-                            horizontalOffset: 50.0,
-                            child: FadeInAnimation(child: widget),
-                          ),
+                          childAnimationBuilder:
+                              (widget) => SlideAnimation(
+                                horizontalOffset: 50.0,
+                                child: FadeInAnimation(child: widget),
+                              ),
                           children: [
                             _buildFeatureCard(
                               icon: Icons.add_circle_outline,
                               title: 'Submit Ideas',
-                              description: 'Share your innovative startup concepts',
+                              description:
+                                  'Share your innovative startup concepts',
                               gradient: const LinearGradient(
                                 colors: [Color(0xFF667eea), Color(0xFF764ba2)],
                               ),
@@ -219,7 +231,8 @@ class _HomeScreenState extends State<HomeScreen>
                             _buildFeatureCard(
                               icon: Icons.how_to_vote_outlined,
                               title: 'Community Voting',
-                              description: 'Vote on ideas from other entrepreneurs',
+                              description:
+                                  'Vote on ideas from other entrepreneurs',
                               gradient: const LinearGradient(
                                 colors: [Color(0xFF4facfe), Color(0xFF00f2fe)],
                               ),
@@ -252,13 +265,21 @@ class _HomeScreenState extends State<HomeScreen>
           Navigator.push(
             context,
             PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  IdeaSubmissionScreen(isDarkMode: widget.isDarkMode),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              pageBuilder:
+                  (context, animation, secondaryAnimation) =>
+                      IdeaSubmissionScreen(isDarkMode: widget.isDarkMode),
+              transitionsBuilder: (
+                context,
+                animation,
+                secondaryAnimation,
+                child,
+              ) {
                 return SlideTransition(
                   position: animation.drive(
-                    Tween(begin: const Offset(1.0, 0.0), end: Offset.zero)
-                        .chain(CurveTween(curve: Curves.easeInOutCubic)),
+                    Tween(
+                      begin: const Offset(1.0, 0.0),
+                      end: Offset.zero,
+                    ).chain(CurveTween(curve: Curves.easeInOutCubic)),
                   ),
                   child: child,
                 );
@@ -281,79 +302,91 @@ class _HomeScreenState extends State<HomeScreen>
     required int delay,
   }) {
     return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        gradient: gradient,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: gradient.colors.first.withOpacity(0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: gradient.colors.first.withOpacity(0.3),
+                blurRadius: 20,
+                offset: const Offset(0, 8),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Icon(
-              icon,
-              color: Colors.white,
-              size: 32,
-            ),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: GoogleFonts.inter(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  description,
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    color: Colors.white.withOpacity(0.9),
-                  ),
+                child: Icon(icon, color: Colors.white, size: 32),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: GoogleFonts.inter(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        color: Colors.white.withOpacity(0.9),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ).animate().fadeIn(delay: Duration(milliseconds: delay), duration: 600.ms)
-     .slideX(begin: 0.3, delay: Duration(milliseconds: delay), duration: 600.ms)
-     .shimmer(delay: Duration(milliseconds: delay + 1000), duration: 1500.ms);
+        )
+        .animate()
+        .fadeIn(delay: Duration(milliseconds: delay), duration: 600.ms)
+        .slideX(
+          begin: 0.3,
+          delay: Duration(milliseconds: delay),
+          duration: 600.ms,
+        )
+        .shimmer(
+          delay: Duration(milliseconds: delay + 1000),
+          duration: 1500.ms,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      _buildWelcomeScreen(),
+      IdeaListingScreen(isDarkMode: widget.isDarkMode),
+      LeaderboardScreen(isDarkMode: widget.isDarkMode),
+    ];
+
     if (_selectedIndex == 0) {
-      return _buildWelcomeScreen();
+      return screens[0];
     }
 
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex - 1,
-        children: _screens.sublist(1),
+        children: screens.sublist(1),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          gradient: widget.isDarkMode 
-              ? AppTheme.darkCardGradient 
-              : AppTheme.cardGradient,
+          gradient:
+              widget.isDarkMode
+                  ? AppTheme.darkCardGradient
+                  : AppTheme.cardGradient,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -368,12 +401,12 @@ class _HomeScreenState extends State<HomeScreen>
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent,
           elevation: 0,
-          selectedItemColor: widget.isDarkMode 
-              ? AppTheme.primaryDark 
-              : AppTheme.primaryLight,
-          unselectedItemColor: widget.isDarkMode 
-              ? AppTheme.textSecondaryDark 
-              : AppTheme.textSecondaryLight,
+          selectedItemColor:
+              widget.isDarkMode ? AppTheme.primaryDark : AppTheme.primaryLight,
+          unselectedItemColor:
+              widget.isDarkMode
+                  ? AppTheme.textSecondaryDark
+                  : AppTheme.textSecondaryLight,
           selectedLabelStyle: GoogleFonts.inter(fontWeight: FontWeight.w600),
           unselectedLabelStyle: GoogleFonts.inter(fontWeight: FontWeight.w500),
           items: const [
