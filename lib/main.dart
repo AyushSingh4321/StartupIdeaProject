@@ -25,11 +25,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isDarkMode = false;
+  bool _showSplash = true; // 1. Add this
 
   @override
   void initState() {
     super.initState();
     _loadThemePreference();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _showSplash = false;
+      });
+    });
   }
 
   _loadThemePreference() async {
@@ -52,7 +59,8 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: _isDarkMode ? Brightness.light : Brightness.dark,
+        statusBarIconBrightness:
+            _isDarkMode ? Brightness.light : Brightness.dark,
         systemNavigationBarColor:
             _isDarkMode ? const Color(0xFF1A1A2E) : Colors.white,
         systemNavigationBarIconBrightness:
@@ -66,10 +74,14 @@ class _MyAppState extends State<MyApp> {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      home: SplashScreen(
-        isDarkMode: _isDarkMode,
-        onThemeToggle: toggleTheme,
-      ), 
+      // 3. Show splash or home based on _showSplash
+      home:
+          _showSplash
+              ? SplashScreen(
+                isDarkMode: _isDarkMode,
+                onThemeToggle: toggleTheme,
+              )
+              : HomeScreen(isDarkMode: _isDarkMode, onThemeToggle: toggleTheme),
     );
   }
 }
