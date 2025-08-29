@@ -83,122 +83,124 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header with theme toggle
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Container(
-                      //   padding: const EdgeInsets.all(12),
-                      //   decoration: BoxDecoration(
-                      //     color: widget.isDarkMode
-                      //         ? Colors.white.withOpacity(0.1)
-                      //         : Colors.black.withOpacity(0.05),
-                      //     borderRadius: BorderRadius.circular(16),
-                      //     border: Border.all(
-                      //       color: widget.isDarkMode
-                      //           ? Colors.white.withOpacity(0.2)
-                      //           : Colors.black.withOpacity(0.1),
-                      //     ),
-                      //   ),
-                      //   child: Icon(
-                      //     Icons.lightbulb_outline,
-                      //     color: widget.isDarkMode
-                      //         ? AppTheme.primaryDark
-                      //         : AppTheme.primaryLight,
-                      //     size: 28,
-                      //   ),
-                      // ).animate().scale(delay: 300.ms, duration: 600.ms)
-                      //  .shimmer(delay: 900.ms, duration: 1000.ms),
-                      GestureDetector(
-                            onTap: widget.onThemeToggle,
-                            child: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                gradient:
-                                    widget.isDarkMode
-                                        ? AppTheme.darkGradient
-                                        : AppTheme.primaryGradient,
-                                borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: (widget.isDarkMode
-                                            ? AppTheme.primaryDark
-                                            : AppTheme.primaryLight)
-                                        .withOpacity(0.3),
-                                    blurRadius: 12,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header with theme toggle
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Container(
+                        //   padding: const EdgeInsets.all(12),
+                        //   decoration: BoxDecoration(
+                        //     color: widget.isDarkMode
+                        //         ? Colors.white.withOpacity(0.1)
+                        //         : Colors.black.withOpacity(0.05),
+                        //     borderRadius: BorderRadius.circular(16),
+                        //     border: Border.all(
+                        //       color: widget.isDarkMode
+                        //           ? Colors.white.withOpacity(0.2)
+                        //           : Colors.black.withOpacity(0.1),
+                        //     ),
+                        //   ),
+                        //   child: Icon(
+                        //     Icons.lightbulb_outline,
+                        //     color: widget.isDarkMode
+                        //         ? AppTheme.primaryDark
+                        //         : AppTheme.primaryLight,
+                        //     size: 28,
+                        //   ),
+                        // ).animate().scale(delay: 300.ms, duration: 600.ms)
+                        //  .shimmer(delay: 900.ms, duration: 1000.ms),
+                        GestureDetector(
+                              onTap: widget.onThemeToggle,
+                              child: Container(
+                                padding: const EdgeInsets.all(12),
+                                decoration: BoxDecoration(
+                                  gradient:
+                                      widget.isDarkMode
+                                          ? AppTheme.darkGradient
+                                          : AppTheme.primaryGradient,
+                                  borderRadius: BorderRadius.circular(16),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: (widget.isDarkMode
+                                              ? AppTheme.primaryDark
+                                              : AppTheme.primaryLight)
+                                          .withOpacity(0.3),
+                                      blurRadius: 12,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(
+                                  widget.isDarkMode
+                                      ? Icons.light_mode
+                                      : Icons.dark_mode,
+                                  color: Colors.white,
+                                  size: 24,
+                                ),
                               ),
-                              child: Icon(
+                            )
+                            .animate()
+                            .scale(delay: 400.ms, duration: 600.ms)
+                            .rotate(delay: 1000.ms, duration: 500.ms),
+                      ],
+                    ),
+                
+                    const SizedBox(height: 60),
+                
+                    // Animated Title
+                    AnimatedTextKit(
+                        key: ValueKey(widget.isDarkMode),
+                      animatedTexts: [
+                        TypewriterAnimatedText(
+                          'The Startup Idea\nEvaluator',
+                          textStyle: GoogleFonts.inter(
+                            fontSize: 42,
+                            fontWeight: FontWeight.bold,
+                            color:
                                 widget.isDarkMode
-                                    ? Icons.light_mode
-                                    : Icons.dark_mode,
-                                color: Colors.white,
-                                size: 24,
-                              ),
-                            ),
-                          )
-                          .animate()
-                          .scale(delay: 400.ms, duration: 600.ms)
-                          .rotate(delay: 1000.ms, duration: 500.ms),
-                    ],
-                  ),
-
-                  const SizedBox(height: 60),
-
-                  // Animated Title
-                  AnimatedTextKit(
-                      key: ValueKey(widget.isDarkMode),
-                    animatedTexts: [
-                      TypewriterAnimatedText(
-                        'The Startup Idea\nEvaluator',
-                        textStyle: GoogleFonts.inter(
-                          fontSize: 42,
-                          fontWeight: FontWeight.bold,
-                          color:
-                              widget.isDarkMode
-                                  ? AppTheme.textPrimaryDark
-                                  : AppTheme.textPrimaryLight,
-                          height: 1.2,
-                        ),
-                        speed: const Duration(milliseconds: 100),
-                      ),
-                    ],
-                    totalRepeatCount: 1,
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Subtitle with gradient
-                  ShaderMask(
-                        shaderCallback:
-                            (bounds) => (widget.isDarkMode
-                                    ? AppTheme.darkGradient
-                                    : AppTheme.primaryGradient)
-                                .createShader(bounds),
-                        child: Text(
-                          'AI + Voting App',
-                          style: GoogleFonts.inter(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                                    ? AppTheme.textPrimaryDark
+                                    : AppTheme.textPrimaryLight,
+                            height: 1.2,
                           ),
+                          speed: const Duration(milliseconds: 100),
                         ),
-                      )
-                      .animate()
-                      .fadeIn(delay: 2000.ms, duration: 800.ms)
-                      .slideX(begin: -0.3, delay: 2000.ms, duration: 800.ms),
-
-                  const SizedBox(height: 40),
-
-                  // Feature Cards
-                  Expanded(
-                    child: AnimationLimiter(
+                      ],
+                      totalRepeatCount: 1,
+                    ),
+                
+                    const SizedBox(height: 16),
+                
+                    // Subtitle with gradient
+                    ShaderMask(
+                          shaderCallback:
+                              (bounds) => (widget.isDarkMode
+                                      ? AppTheme.darkGradient
+                                      : AppTheme.primaryGradient)
+                                  .createShader(bounds),
+                          child: Text(
+                            'AI + Voting App',
+                            style: GoogleFonts.inter(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                        .animate()
+                        .fadeIn(delay: 2000.ms, duration: 800.ms)
+                        .slideX(begin: -0.3, delay: 2000.ms, duration: 800.ms),
+                
+                    const SizedBox(height: 40),
+                
+                    // Feature Cards
+                    AnimationLimiter(
                       child: ListView(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
                         children: AnimationConfiguration.toStaggeredList(
                           duration: const Duration(milliseconds: 600),
                           childAnimationBuilder:
@@ -252,8 +254,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -279,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     Tween(
                       begin: const Offset(1.0, 0.0),
                       end: Offset.zero,
-                    ).chain(CurveTween(curve: Curves.easeInOutCubic)),
+                    ).chain(CurveTween(curve: Curves.easeOutCirc)),
                   ),
                   child: child,
                 );
@@ -304,7 +306,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            gradient: gradient,
+           gradient: widget.isDarkMode
+          ? AppTheme.darkGradient
+          : AppTheme.primaryGradient,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(

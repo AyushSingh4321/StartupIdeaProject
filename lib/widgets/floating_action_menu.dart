@@ -165,25 +165,27 @@ class _FloatingActionMenuState extends State<FloatingActionMenu>
             icon: Icons.leaderboard,
             label: 'Leaderboard',
             onTap: widget.onViewLeaderboard,
-            color: const Color(0xFFFFD700),
+            color: const Color.fromARGB(255, 8, 22, 40),
             delay: 0,
           ),
           _buildMenuItem(
             icon: Icons.lightbulb_outline,
             label: 'View Ideas',
             onTap: widget.onViewIdeas,
-            color: widget.isDarkMode 
-                ? AppTheme.accentDark 
-                : AppTheme.accentLight,
+            // color: widget.isDarkMode 
+            //     ? AppTheme.accentDark 
+            //     : AppTheme.accentLight,
+             color: const Color.fromARGB(255, 8, 22, 40),
             delay: 1,
           ),
           _buildMenuItem(
             icon: Icons.add,
             label: 'Submit Idea',
             onTap: widget.onSubmitIdea,
-            color: widget.isDarkMode 
-                ? AppTheme.primaryDark 
-                : AppTheme.primaryLight,
+            // color: widget.isDarkMode 
+            //     ? AppTheme.primaryDark 
+            //     : AppTheme.primaryLight,
+            color: const Color.fromARGB(255, 8, 22, 40),
             delay: 2,
           ),
         ],
@@ -193,17 +195,18 @@ class _FloatingActionMenuState extends State<FloatingActionMenu>
           width: 64,
           height: 64,
           decoration: BoxDecoration(
-            gradient: widget.isDarkMode 
-                ? AppTheme.darkGradient 
-                : AppTheme.primaryGradient,
+            // gradient: widget.isDarkMode 
+            //     ? AppTheme.darkGradient 
+            //     : AppTheme.primaryGradient,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
                 color: (widget.isDarkMode 
-                    ? AppTheme.primaryDark 
-                    : AppTheme.primaryLight).withOpacity(0.4),
-                blurRadius: 20,
-                offset: const Offset(0, 8),
+                    ? const Color.fromARGB(255, 48, 48, 84)
+                    : const Color.fromARGB(255, 94, 110, 155)), 
+                    // .withOpacity(0.4),
+                blurRadius: 0.02,
+                // offset: const Offset(0, 8),
               ),
             ],
           ),
